@@ -1,0 +1,45 @@
+{
+ "properties": {
+  "displayName": "A Configuração de Aplicativos deve usar um link privado",
+  "policyType": "BuiltIn",
+  "mode": "Indexed",
+  "description": "O Link Privado do Azure permite que você conecte sua rede virtual a serviços do Azure sem um endereço IP público na origem ou no destino. A plataforma de link privado controla a conectividade entre o consumidor e os serviços na rede de backbone do Azure. Ao mapear pontos de extremidade privados para suas instâncias de configuração de aplicativos em vez de todo o serviço, você também estará protegido contra riscos de vazamento de dados. Saiba mais em: https://aka.ms/appconfig/private-endpoint.",
+  "metadata": {
+   "version": "1.0.2",
+   "category": "App Configuration"
+  },
+  "parameters": {
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Efeito",
+     "description": "Habilitar ou desabilitar a execução da política"
+    },
+    "allowedValues": [
+     "AuditIfNotExists",
+     "Disabled"
+    ],
+    "defaultValue": "AuditIfNotExists"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "field": "type",
+    "equals": "Microsoft.AppConfiguration/configurationStores"
+   },
+   "then": {
+    "effect": "[parameters('effect')]",
+    "details": {
+     "type": "Microsoft.AppConfiguration/configurationStores/privateEndpointConnections",
+     "existenceCondition": {
+      "field": "Microsoft.AppConfiguration/configurationStores/privateEndpointConnections/privateLinkServiceConnectionState.status",
+      "equals": "Approved"
+     }
+    }
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Authorization/policyDefinitions/ca610c1d-041c-4332-9d88-7ed3094967c7",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "ca610c1d-041c-4332-9d88-7ed3094967c7"
+}

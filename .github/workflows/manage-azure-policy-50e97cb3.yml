@@ -1,0 +1,42 @@
+name: manage-azure-policy-50e97cb3
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/As_entidades_de_serviço_devem_ser_usadas_para_proteger_as_suas_assinaturas_em_vez_dos_certificados_de_gerenciamento_6646a0bd-e110-40ca-bb97-84fcee63c414/**'
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/A_injeção_de_rede_virtual_deve_ser_habilitada_para_o_Azure_Data_Explorer_9ad2fd1f-b25f-47a2-aa01-1a5a779e6413/**'
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/A_Configuração_de_Aplicativos_deve_usar_um_link_privado_ca610c1d-041c-4332-9d88-7ed3094967c7/**'
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/IRS1075_Setembro_de_2016_105e0327-6175-4eb2-9af4-1fba43bdb39d/**'
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/_Visualizar_Implantar_pré-requisitos_para_habilitar_as_políticas_de_Configuração_de_Convidado_em_máquinas_virtuais_12794019-7a00-42cf-95c2-882eed337cc8/**'
+#      - 'INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/UK_OFFICIAL_e_UK_NHS_3937f550-eedd-4639-9c5e-294358be442e/**'
+#      - .github/workflows/manage-azure-policy-50e97cb3.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_50e97cb3}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/As_entidades_de_serviço_devem_ser_usadas_para_proteger_as_suas_assinaturas_em_vez_dos_certificados_de_gerenciamento_6646a0bd-e110-40ca-bb97-84fcee63c414/**
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/A_injeção_de_rede_virtual_deve_ser_habilitada_para_o_Azure_Data_Explorer_9ad2fd1f-b25f-47a2-aa01-1a5a779e6413/**
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/policies/A_Configuração_de_Aplicativos_deve_usar_um_link_privado_ca610c1d-041c-4332-9d88-7ed3094967c7/**
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/IRS1075_Setembro_de_2016_105e0327-6175-4eb2-9af4-1fba43bdb39d/**
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/_Visualizar_Implantar_pré-requisitos_para_habilitar_as_políticas_de_Configuração_de_Convidado_em_máquinas_virtuais_12794019-7a00-42cf-95c2-882eed337cc8/**
+          INSERCOMHAI (50a27b14-5a24-4591-9a5c-4ab5213dc801)/initiatives/UK_OFFICIAL_e_UK_NHS_3937f550-eedd-4639-9c5e-294358be442e/**

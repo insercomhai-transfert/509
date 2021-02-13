@@ -1,0 +1,33 @@
+{
+ "properties": {
+  "displayName": "[Visualizar]: Implantar pré-requisitos para habilitar as políticas de Configuração de Convidado em máquinas virtuais",
+  "policyType": "BuiltIn",
+  "description": "Esta iniciativa adiciona uma identidade gerenciada atribuída ao sistema e implanta a extensão de Configuração de Convidado apropriada à plataforma para as máquinas virtuais qualificadas para serem monitoradas por políticas de Configuração de Convidado. Este é um pré-requisito para todas as políticas de Configuração de Convidado e precisa ser atribuído ao escopo de atribuição de política antes de usar qualquer política de Configuração de Convidado. Para obter mais informações sobre a Configuração de Convidado, visite https://aka.ms/gcpol.",
+  "metadata": {
+   "category": "Guest Configuration",
+   "version": "1.0.0-preview",
+   "preview": true
+  },
+  "policyDefinitions": [
+   {
+    "policyDefinitionReferenceId": "Prerequisite_AddSystemIdentityWhenNone",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3cf2ab00-13f1-4d0c-8971-2ac904541a7e"
+   },
+   {
+    "policyDefinitionReferenceId": "Prerequisite_AddSystemIdentityWhenUser",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/497dff13-db2a-4c0f-8603-28fa3b331ab6"
+   },
+   {
+    "policyDefinitionReferenceId": "Prerequisite_DeployExtensionWindows",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/385f5831-96d4-41db-9a3c-cd3af78aaae6"
+   },
+   {
+    "policyDefinitionReferenceId": "Prerequisite_DeployExtensionLinux",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/331e8ea8-378a-410f-a2e5-ae22f38bb0da"
+   }
+  ]
+ },
+ "id": "/providers/Microsoft.Authorization/policySetDefinitions/12794019-7a00-42cf-95c2-882eed337cc8",
+ "type": "Microsoft.Authorization/policySetDefinitions",
+ "name": "12794019-7a00-42cf-95c2-882eed337cc8"
+}

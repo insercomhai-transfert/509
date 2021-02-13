@@ -1,0 +1,63 @@
+{
+ "properties": {
+  "displayName": "A injeção de rede virtual deve ser habilitada para o Azure Data Explorer",
+  "policyType": "BuiltIn",
+  "mode": "Indexed",
+  "description": "Proteja seu perímetro de rede com injeção de rede virtual que permite que você aplique regras de grupo de segurança de rede, conecte-se localmente e proteja suas fontes de conexão de dados com pontos de extremidade de serviço.",
+  "metadata": {
+   "version": "1.0.0",
+   "category": "Azure Data Explorer"
+  },
+  "parameters": {
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Efeito",
+     "description": "Habilitar ou desabilitar a execução da política"
+    },
+    "allowedValues": [
+     "Audit",
+     "Deny",
+     "Disabled"
+    ],
+    "defaultValue": "Audit"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Kusto/Clusters"
+     },
+     {
+      "anyOf": [
+       {
+        "field": "Microsoft.Kusto/clusters/virtualNetworkConfiguration",
+        "exists": false
+       },
+       {
+        "field": "Microsoft.Kusto/clusters/virtualNetworkConfiguration.subnetId",
+        "exists": false
+       },
+       {
+        "field": "Microsoft.Kusto/clusters/virtualNetworkConfiguration.enginePublicIpId",
+        "exists": false
+       },
+       {
+        "field": "Microsoft.Kusto/clusters/virtualNetworkConfiguration.dataManagementPublicIpId",
+        "exists": false
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "[parameters('effect')]"
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Authorization/policyDefinitions/9ad2fd1f-b25f-47a2-aa01-1a5a779e6413",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "9ad2fd1f-b25f-47a2-aa01-1a5a779e6413"
+}
